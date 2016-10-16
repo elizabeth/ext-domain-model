@@ -32,6 +32,7 @@ public struct Money: CustomStringConvertible, Mathematics {
         case GBP
         case EUR
         case CAN
+        case YEN
     }
     
     private func convertUSD(_ to: currencyType) -> Double {
@@ -44,6 +45,8 @@ public struct Money: CustomStringConvertible, Mathematics {
             return amount * 2 / 3
         case .CAN:
             return amount * 4 / 5
+        case .YEN:
+            return amount
         }
     }
 
@@ -59,6 +62,8 @@ public struct Money: CustomStringConvertible, Mathematics {
             newAmount = newAmount * 3 / 2
         case .CAN:
             newAmount = newAmount * 5 / 4
+        case .YEN:
+            break
         }
 
         return Money(amount: newAmount, currency: to)
@@ -98,18 +103,22 @@ extension Double {
     var USD: Money {
         return Money(amount: self, currency: Money.currencyType.USD)
     }
-
-    var EUR: Money { 
-        return (Money(amount: self, currency: Money.currencyType.USD)).convert(Money.currencyType.EUR)
+        
+    var EUR: Money {
+        return Money(amount: self, currency: Money.currencyType.EUR)
     }
-
-    var GBP: Money { 
-        return (Money(amount: self, currency: Money.currencyType.USD)).convert(Money.currencyType.GBP)
+        
+    var GBP: Money {
+        return Money(amount: self, currency: Money.currencyType.GBP)
     }
-    var CAN: Money { 
-        return (Money(amount: self, currency: Money.currencyType.USD)).convert(Money.currencyType.CAN)
+    
+    var CAN: Money {
+        return Money(amount: self, currency: Money.currencyType.CAN)
     }
-
+    
+    var YEN: Money {
+        return Money(amount: self, currency: Money.currencyType.YEN)
+    }
 }
 
 ////////////////////////////////////
