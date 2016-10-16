@@ -8,9 +8,14 @@
 
 import XCTest
 
-import SimpleDomainModel
+import ExtDomainModel
 
 class JobTests: XCTestCase {
+  
+  func testDescription() {
+    let job = Job(title: "Guest Lecturer", type: Job.JobType.Salary(1000))
+    XCTAssert(job.description == "Guest Lecturer Salary(1000)")
+  }
   
   func testCreateSalaryJob() {
     let job = Job(title: "Guest Lecturer", type: Job.JobType.Salary(1000))
@@ -37,5 +42,6 @@ class JobTests: XCTestCase {
     job.raise(1.0)
     XCTAssert(job.calculateIncome(10) == 160)
   }
+
   
 }

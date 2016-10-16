@@ -23,7 +23,7 @@ open class TestMe {
 ////////////////////////////////////
 // Money
 
-public struct Money {
+public struct Money: CustomStringConvertible, Mathematics {
     public var amount : Double
     public var currency : currencyType
 
@@ -83,21 +83,19 @@ public struct Money {
         let newAmount = from.amount - orig.amount
         return Money(amount: newAmount, currency: from.currency)
     }
-}
-
-extension Money: CustomStringConvertible {
+    
     public var description: String {
         return "\(currency)\(amount)"
     }
 }
 
 protocol Mathematics {
-    func add() -> Money
-    func subtract() -> Money
+    func add(_ to: Money) -> Money
+    func subtract(_ from: Money) -> Money
 }
 
 extension Double {
-    var USD: Money { 
+    var USD: Money {
         return Money(amount: self, currency: Money.currencyType.USD)
     }
 
@@ -117,7 +115,7 @@ extension Double {
 ////////////////////////////////////
 // Job
 //
-open class Job {
+open class Job: CustomStringConvertible {
     fileprivate var title : String
     fileprivate var type : JobType
     
@@ -148,12 +146,16 @@ open class Job {
             self.type = .Hourly(hourNum + amt)
         }
     }
+    
+    public var description: String {
+        return "\(title) \(type)"
+    }
 }
 
 ////////////////////////////////////
 // Person
 
-open class Person {
+open class Person: CustomStringConvertible{
     open var firstName : String = ""
     open var lastName : String = ""
     open var age : Int = 0
@@ -193,12 +195,16 @@ open class Person {
     open func toString() -> String {
         return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(job) spouse:\(spouse)]"
     }
+    
+    public var description: String {
+        return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(job) spouse:\(spouse)]"
+    }
 }
 
 ////////////////////////////////////
 // Family
 
-open class Family {
+open class Family: CustomStringConvertible {
     fileprivate var members : [Person] = []
     
     public init(spouse1: Person, spouse2: Person) {
@@ -230,5 +236,13 @@ open class Family {
         }
         
         return total
+    }
+    
+    public var description: String {
+        var string = ""
+        for member in members {
+            string.append("Member: \(member.firstName) \(member.lastName)")
+        }
+        return string
     }
 }
