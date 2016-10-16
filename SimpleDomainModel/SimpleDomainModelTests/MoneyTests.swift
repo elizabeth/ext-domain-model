@@ -14,13 +14,25 @@ import SimpleDomainModel
 // MoneyTests
 //
 class MoneyTests: XCTestCase {
-  
   let tenUSD = Money(amount: 10, currency: Money.currencyType.USD)
   let twelveUSD = Money(amount: 12, currency: Money.currencyType.USD)
   let fiveGBP = Money(amount: 5, currency: Money.currencyType.GBP)
   let fifteenEUR = Money(amount: 15, currency: Money.currencyType.EUR)
   let fifteenCAN = Money(amount: 15, currency: Money.currencyType.CAN)
+  let fourUSD = Money(amount: 4, currency: Money.currencyType.USD)
+
+  // CustomStringConvertible Description test
+  func testDescription() {
+    let twentytwoEURDesu = Money(amount: 22, currency: Money.currencyType.EUR).description
+    XCTAssert(twentytwoEURDesu == "EUR22.0")
+  }
   
+  // CustomStringConvertible Description test
+  func testDescriptionTwo() {
+    let fourCANDesu = Money(amount: 4, currency: Money.currencyType.CAN).description
+    XCTAssert(fourCANDesu == "CAN4.0")
+  }
+ 
   func testCanICreateMoney() {
     let oneUSD = Money(amount: 1, currency: Money.currencyType.USD)
     XCTAssert(oneUSD.amount == 1)

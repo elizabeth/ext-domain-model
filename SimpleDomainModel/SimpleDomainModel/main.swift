@@ -21,7 +21,7 @@ open class TestMe {
 }
 
 ////////////////////////////////////
-// Moneya
+// Money
 
 public struct Money {
     public var amount : Double
@@ -200,10 +200,9 @@ open class Person {
 
 open class Family {
     fileprivate var members : [Person] = []
-    let hoursInYear = 2000 // number of hours in a year
     
     public init(spouse1: Person, spouse2: Person) {
-        if spouse1.spouse != nil && spouse2.spouse != nil {
+        if spouse1.spouse == nil && spouse2.spouse == nil {
             spouse1.spouse = spouse2
             spouse2.spouse = spouse1
             members.append(spouse1)
@@ -226,7 +225,7 @@ open class Family {
         for member in members {
             let job = member.job
             if job != nil {
-                total += job!.calculateIncome(hoursInYear)
+                total += job!.calculateIncome(2000)
             }
         }
         
